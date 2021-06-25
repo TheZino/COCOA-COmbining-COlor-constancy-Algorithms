@@ -1,0 +1,11 @@
+### gitignore
+
+# Python
+
+source/__pycache__
+*.pyc
+
+# Experiments
+
+experiments/
+*.csv
