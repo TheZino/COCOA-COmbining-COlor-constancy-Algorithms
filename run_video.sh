@@ -20,24 +20,21 @@ inf=18
 batch_size=8
 hlnum=3
 hlweights=(256 128)
+lstm_nch=64
 
 ################################################################################
 ################################################################################
 
-model='./model_weights/BCC/model_video_tmp.pth'
+model="./model_weights/BCC/model_video_tmp.pth"
 
-hfeat=64
-mode='lstm'
-
-save_file='./out/video//combo_est_bcc.csv'
+save_file='./out/video/combo_est_bcc.csv'
 
 python3 ./source/infer_video.py \
 --model $model \
---infeat $inf \
---hiddenfeat $hfeat \
+--save_file $save_file \
+--in_dir $db \
+--inest $inf \
+--lstm_nch $lstm_nch \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
---in_dir $db \
---save_file $save_file \
---mode $mode \
 --device $gpu

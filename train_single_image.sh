@@ -14,7 +14,7 @@ gpu='cuda:0'
 db='./data/SG568/'
 
 epochs=3000
-inf=18
+input_ests=18
 
 ################################################################################
 ### Model details
@@ -37,7 +37,7 @@ time python3 ./source/train_single.py  \
 --batch_size $batch_size \
 --threads $threads \
 --lr $lr \
---infeat $inf \
+--inest $input_ests \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
 --save_dir $savedir'/fold0/' \
@@ -51,7 +51,7 @@ time python3 ./source/train_single.py  \
 --batch_size $batch_size \
 --threads $threads \
 --lr $lr \
---infeat $inf \
+--input_estseat $input_ests \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
 --save_dir $savedir'/fold1/' \
@@ -64,7 +64,7 @@ time python3 ./source/train_single.py  \
 --batch_size $batch_size \
 --threads $threads \
 --lr $lr \
---infeat $inf \
+--input_estseat $input_ests \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
 --save_dir $savedir'/fold2/' \

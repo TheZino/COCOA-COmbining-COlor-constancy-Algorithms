@@ -23,6 +23,7 @@ inest=18
 batch_size=8
 hlnum=3
 hlweights=(256 128)
+lstm_nch=64 \
 
 lr=0.0001
 
@@ -30,8 +31,6 @@ lr=0.0001
 ################################################################################
 
 iddate=`date '+%Y%m%d_%H%M'`
-
-hfeat=64
 
 savedir='./experiments/video/exp_HC_RGB_nG_'$iddate'_'$hlnum'hl_'$hfeat
 
@@ -42,8 +41,8 @@ time python3 ./source/train_video.py  \
 --threads $threads \
 --lr $lr \
 --wd \
---infeat $inest \
---hfeat $hfeat \
+--inest $inest \
+--lstm_nch $lstm_nch \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
 --save_dir $savedir \

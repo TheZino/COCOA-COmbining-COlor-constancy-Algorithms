@@ -46,13 +46,13 @@ class ComboNN_single(nn.Module):
 
 
 class ComboNN_video(nn.Module):
-    def __init__(self, in_nch=18, hlnum=2, hlweights=[], out_nch=3):
+    def __init__(self, in_nch=18, hlnum=3, hlweights=[], lstm_nch=64, out_nch=3):
         super(ComboNN_video, self).__init__()
 
         self.in_nch = in_nch
         self.out_nch = out_nch
         self.nlayers = 1
-        self.nhid = out_nch
+        self.nhid = lstm_nch
 
         layers = []
         for i in range(hlnum):
@@ -69,7 +69,7 @@ class ComboNN_video(nn.Module):
             elif i == (hlnum - 1):
                 layers.append(
                     nn.Linear(
-                        in_features=in_features, out_features=self.out_nch, bias=True
+                        in_features=in_features, out_features=self.nhid, bias=True
                     )
                 )
             else:
@@ -85,7 +85,7 @@ class ComboNN_video(nn.Module):
         self.layers = nn.Sequential(*layers)
 
         self.lstm = nn.LSTM(
-            input_size=self.out_nch,
+            input_size=self.nhid,
             hidden_size=self.nhid,
             num_layers=self.nlayers,
             batch_first=True,
@@ -94,7 +94,7 @@ class ComboNN_video(nn.Module):
         self.post_lstm = nn.Sequential(
             nn.Linear(in_features=self.nhid, out_features=self.nhid, bias=True),
             nn.ReLU(inplace=False),
-            nn.Linear(in_features=self.nhid, out_features=3, bias=True),
+            nn.Linear(in_features=self.nhid, out_features=self.out_nch, bias=True),
         )
 
     def forward(self, inpt, mask, X_lengths):
@@ -106,12 +106,12 @@ class ComboNN_video(nn.Module):
 
         x = self.layers(x)
 
-        lstm_input = x.view(bb, ll, self.out_nch)
+        lstm_input = x.view(bb, ll, self.nhid)
 
         zeros = torch.zeros(lstm_input.shape).to(inpt.device)
 
         lstm_input = torch.where(
-            mask.unsqueeze(2).repeat(1, 1, self.out_nch), lstm_input, zeros
+            mask.unsqueeze(2).repeat(1, 1, self.nhid), lstm_input, zeros
         )
 
         lstm_input = torch.nn.utils.rnn.pack_padded_sequence(

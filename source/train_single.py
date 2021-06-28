@@ -19,7 +19,7 @@ from utils.weight_initializers import init_weights
 parser = argparse.ArgumentParser(description="Training")
 
 parser.add_argument(
-    "--epochs", type=int, default=2000, help="number of epochs to train for"
+    "--epochs", type=int, default=3000, help="number of epochs to train for"
 )
 parser.add_argument("--batch_size", type=int, default=8, help="training batch size")
 parser.add_argument(
@@ -32,7 +32,7 @@ parser.add_argument(
     "--threads", type=int, default=4, help="number of threads for data loader to use"
 )
 
-parser.add_argument("--lr", type=float, default=1e-3, help="Starting Learning Rate.")
+parser.add_argument("--lr", type=float, default=3e-3, help="Starting Learning Rate.")
 parser.add_argument(
     "--lrdwn", nargs="*", help="Learning rate decreasing epochs", required=False
 )
@@ -52,20 +52,21 @@ parser.add_argument(
 parser.add_argument(
     "--save_dir",
     type=str,
-    default="./",
+    default="./out/single_image/",
     help="directory where to save output data and checkpoints",
 )
 
 parser.add_argument("--wd", action="store_true")
-parser.add_argument("--infeat", type=int, default=24, help="number of feature in input")
+parser.add_argument("--inest", type=int, default=18, help="number of feature in input")
 parser.add_argument(
-    "--hfeat", type=int, default=16, help="number of hidden feature of the model"
+    "--hlnum", type=int, default=4, help="number of hidden feature of the model"
 )
 parser.add_argument(
-    "--hlnum", type=int, default=2, help="number of hidden feature of the model"
-)
-parser.add_argument(
-    "--hlweights", nargs="*", help="weights of each level", required=True
+    "--hlweights",
+    nargs="*",
+    default=["256", "128", "64"],
+    help="weights of each level",
+    required=True,
 )
 parser.add_argument("--model_chkp", type=str, default="", help="Model to load")
 parser.add_argument("--optim_chkp", type=str, default="", help="Optimizer to load")
@@ -155,7 +156,7 @@ print(
 
 print("\n===> Building models")
 
-model = ComboNN(in_nch=opt.infeat, hlnum=opt.hlnum, hlweights=opt.hlweights, out_nch=3)
+model = ComboNN(in_nch=opt.inest, hlnum=opt.hlnum, hlweights=opt.hlweights, out_nch=3)
 
 init_weights(model, "normal")
 

@@ -28,32 +28,31 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    "--in_dir", type=str, default="./", help="directory containing input images"
+    "--in_dir", type=str, default="", help="directory containing input images"
 )
 parser.add_argument(
     "--model", type=str, default="", help="Pre-trained generator model path"
 )
 parser.add_argument(
-    "--infeat", type=int, default=18, help="number of input feature of the model"
+    "--inest", type=int, default=18, help="number of input feature of the model"
 )
 parser.add_argument(
-    "--hiddenfeat", type=int, default=3, help="number of input feature of the lstm"
+    "--hlnum", type=int, default=3, help="number of hidden feature of the model"
 )
 parser.add_argument(
-    "--hfeat", type=int, default=16, help="number of hidden feature of the model"
+    "--hlweights", nargs="*", default=["256", "128"], help="weights of each level"
 )
 parser.add_argument(
-    "--hlnum", type=int, default=2, help="number of hidden feature of the model"
+    "--lstm_nch",
+    type=int,
+    default=64,
+    help="number of hidden feature of the lstm module",
 )
-parser.add_argument(
-    "--hlweights", nargs="*", help="weights of each level", required=True
-)
+
 parser.add_argument(
     "--threads", type=int, default=4, help="number of threads for data loader to use"
 )
-
 parser.add_argument("--device", type=str, default="cpu", help="GPU or CPU device")
-parser.add_argument("--mode", type=str, default="dncat", help="camera mode")
 
 
 opt = parser.parse_args()
@@ -79,8 +78,14 @@ print("\n===> Building models")
 
 
 model = ComboNN(
-    in_nch=opt.infeat, hlnum=opt.hlnum, hlweights=opt.hlweights, out_nch=opt.hiddenfeat
+    in_nch=opt.inest,
+    hlnum=opt.hlnum,
+    hlweights=opt.hlweights,
+    lstm_nch=opt.lstm_nch,
+    out_nch=3,
 )
+
+print(model)
 
 ### Models loading
 print("\n===> Loading Model")
