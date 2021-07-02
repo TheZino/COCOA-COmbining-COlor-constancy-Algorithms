@@ -8,4 +8,4 @@ source/__pycache__
 # Experiments
 
 experiments/
-*.csv
+/*.csv
