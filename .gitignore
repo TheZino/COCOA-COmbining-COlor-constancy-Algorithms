@@ -7,5 +7,6 @@ source/__pycache__
 
 # Experiments
 
+out/
 experiments/
 /*.csv

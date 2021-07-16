@@ -42,6 +42,8 @@ def collate_pad_frames(batch):
 
     batch = list(batch)
 
+    n_inf = batch[0][0].shape[1]
+
     X_lengths = [tens[0].shape[0] for tens in batch]
 
     m_len = max(X_lengths)
@@ -53,7 +55,7 @@ def collate_pad_frames(batch):
     for ii in range(len(batch)):
         diff = m_len - X_lengths[ii]
         batch[ii] = list(batch[ii])
-        pad = torch.zeros(diff, 18)
+        pad = torch.zeros(diff, n_inf)
         pad_gt = torch.zeros(diff, 3)
         inputt.append(torch.cat([batch[ii][0], pad], 0))
         target.append(batch[ii][1])
