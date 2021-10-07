@@ -11,7 +11,7 @@ gpu='cuda:0'
 ################################################################################
 ### Training parameters
 
-db='./data/SG568/'
+db='./data/SG568_1-2/'
 
 epochs=3000
 input_ests=18
@@ -29,7 +29,7 @@ lr=0.003
 
 iddate=`date '+%Y%m%d_%H%M'`
 
-savedir='./experiments/single_image/exp_HC_RGB_nG_'$iddate'_'$hlnum'hl/'
+savedir='./experiments/single_image/half_db/exp_HC_RGB_nG_'$iddate'_'$hlnum'hl/'
 
 
 time python3 ./source/train_single.py  \
@@ -44,7 +44,6 @@ time python3 ./source/train_single.py  \
 --trainset_dir $db/fold_tr0.csv \
 --validation_dir $db/fold_val0.csv \
 --device $gpu
-
 
 time python3 ./source/train_single.py  \
 --epochs $epochs \
