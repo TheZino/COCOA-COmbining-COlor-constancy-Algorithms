@@ -19,13 +19,13 @@ inf=18
 
 batch_size=8
 hlnum=3
-hlweights=(256 128)
-lstm_nch=64
+hlweights=(1024 512) #(256 128)
+lstm_nch=3 #64
 
 ################################################################################
 ################################################################################
 
-model="./model_weights/BCC/model_video_tmp.pth"
+model="./experiments/video/exp_HC_RGB_nG_20210726_1149_3hl_/checkpoints/netComboNN_epochbest.pth"
 
 save_file='./out/video/combo_est_bcc.csv'
 

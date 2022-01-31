@@ -15,7 +15,7 @@ from data.dataset_video import (
     VideoSampler,
     collate_pad_frames,
 )
-from models.combonn import ComboNN_video as ComboNN
+from models.combonn import ComboNN_video_pre as ComboNN
 from utils.print_utils import printProgressBar
 from utils.general_utils import adjust_learning_rate, seed_everything
 from utils.weight_initializers import init_weights

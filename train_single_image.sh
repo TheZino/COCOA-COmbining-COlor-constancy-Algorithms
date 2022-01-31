@@ -11,7 +11,7 @@ gpu='cuda:0'
 ################################################################################
 ### Training parameters
 
-db='./data/SG568_1-2/'
+db='./data/SG568_1-32/'
 
 epochs=3000
 input_ests=18
@@ -50,7 +50,7 @@ time python3 ./source/train_single.py  \
 --batch_size $batch_size \
 --threads $threads \
 --lr $lr \
---input_estseat $input_ests \
+--inest $input_ests \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
 --save_dir $savedir'/fold1/' \
@@ -63,7 +63,7 @@ time python3 ./source/train_single.py  \
 --batch_size $batch_size \
 --threads $threads \
 --lr $lr \
---input_estseat $input_ests \
+--inest $input_ests \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
 --save_dir $savedir'/fold2/' \

@@ -80,7 +80,7 @@ print("\n===> Loading Model")
 
 ckpt = torch.load(model_w, map_location="cpu")
 
-model.load_state_dict(ckpt)
+model.load_state_dict(ckpt["model_state_dict"])
 model.eval()
 
 ############################ Setting cuda ######################################

@@ -3,7 +3,6 @@ import csv
 import os
 
 import torch
-import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
@@ -11,17 +10,19 @@ from utils.ColorMetrics import RecoveryLoss
 from data.dataset_si import DatasetFromFolder, ValsetFromFolder
 from models.combonn import ComboNN_single as ComboNN
 from utils.print_utils import printProgressBar
-from utils.general_utils import adjust_learning_rate, save_model, save_optim
+from utils.general_utils import adjust_learning_rate
 from utils.weight_initializers import init_weights
 
-##################################################################################################################################
+###############################################################################
+###############################################################################
 
 parser = argparse.ArgumentParser(description="Training")
 
 parser.add_argument(
     "--epochs", type=int, default=3000, help="number of epochs to train for"
 )
-parser.add_argument("--batch_size", type=int, default=8, help="training batch size")
+parser.add_argument("--batch_size", type=int, default=8,
+                    help="training batch size")
 parser.add_argument(
     "--device",
     type=str,
@@ -29,12 +30,20 @@ parser.add_argument(
     help="Device for training [cpu, cuda:0, cuda:1]",
 )
 parser.add_argument(
-    "--threads", type=int, default=4, help="number of threads for data loader to use"
+    "--threads", type=int, default=4,
+    help="number of threads for data loader to use"
+)
+parser.add_argument(
+    "--seed", type=int, default=123123, help="seed to use for random operations"
 )
 
-parser.add_argument("--lr", type=float, default=3e-3, help="Starting Learning Rate.")
+parser.add_argument("--lr", type=float, default=3e-3,
+                    help="Starting Learning Rate.")
 parser.add_argument(
-    "--lrdwn", nargs="*", help="Learning rate decreasing epochs", required=False
+    "--lrdwn",
+    nargs="*",
+    help="Learning rate decreasing epochs",
+    required=False
 )
 
 parser.add_argument(
@@ -57,9 +66,13 @@ parser.add_argument(
 )
 
 parser.add_argument("--wd", action="store_true")
-parser.add_argument("--inest", type=int, default=18, help="number of feature in input")
+parser.add_argument("--inest", type=int, default=18,
+                    help="number of feature in input")
 parser.add_argument(
-    "--hlnum", type=int, default=4, help="number of hidden feature of the model"
+    "--hlnum",
+    type=int,
+    default=4,
+    help="number of hidden feature of the model"
 )
 parser.add_argument(
     "--hlweights",
@@ -69,7 +82,8 @@ parser.add_argument(
     required=True,
 )
 parser.add_argument("--model_chkp", type=str, default="", help="Model to load")
-parser.add_argument("--optim_chkp", type=str, default="", help="Optimizer to load")
+parser.add_argument("--optim_chkp", type=str,
+                    default="", help="Optimizer to load")
 
 opt = parser.parse_args()
 
@@ -85,22 +99,23 @@ if opt.lrdwn is None:
     opt.lrdwn = []
 
 input_image_path = opt.trainset_dir  # path to the input image directory
-validation_image_path = opt.validation_dir  # path to the validation image directory
+# path to the validation image directory
+validation_image_path = opt.validation_dir
 
 save_dir = opt.save_dir  # directory where to save checkpoints and outputs
 check_path = save_dir + "/checkpoints"  # directory for checkpoint save
 
-### Path to the pretrained model to load
+# Path to the pretrained model to load
 model_chkp = opt.model_chkp
 optim_chkp = opt.optim_chkp
 
-### GPU board availability check
+# GPU board availability check
 cuda_check = torch.cuda.is_available()
 
-### Seed setting for random operations
-torch.manual_seed(123123)
+# Seed setting for random operations
+torch.manual_seed(opt.seed)
 if cuda_check:
-    torch.cuda.manual_seed(123123)
+    torch.cuda.manual_seed(opt.seed)
 
 ##################### Check Folders ############################################
 
@@ -156,28 +171,29 @@ print(
 
 print("\n===> Building models")
 
-model = ComboNN(in_nch=opt.inest, hlnum=opt.hlnum, hlweights=opt.hlweights, out_nch=3)
+model = ComboNN(in_nch=opt.inest, hlnum=opt.hlnum,
+                hlweights=opt.hlweights, out_nch=3)
 
 init_weights(model, "normal")
 
-### Models loading
+# Models loading
 if model_chkp != "":
     print("\n===> Loading Model")
     model.load_state_dict(torch.load(pretrained_G))
 
 ########################### Setting Loss #######################################
 
-### Criterions
+# Criterions
 Loss_crit = RecoveryLoss()
 
 
-### Optimizers
+# Optimizers
 if opt.wd:
     optim = optim.Adam(model.parameters(), lr=lr, weight_decay=lr / 200)
 else:
     optim = optim.Adam(model.parameters(), lr=lr)
 
-### Loading optimizers
+# Loading optimizers
 if optim_chkp != "":
     print("\n===> Loading Optimizer")
     optim.load_state_dict(torch.load(optim_chkp))
@@ -220,7 +236,7 @@ def train(epoch):
 
         out = model(inputt)
 
-        ### Loss evaluation
+        # Loss evaluation
 
         # MSE Loss
         MSEG = Loss_crit(out, target)
@@ -273,7 +289,7 @@ def validation(epoch):
         err = Loss_crit(out, target)
         err_mean += err.item()
 
-        ### Metrics Evaluation
+        # Metrics Evaluation
 
         printProgressBar(
             i, len(validation_data_loader), prefix="Validation:", suffix="", length=50
@@ -295,7 +311,7 @@ def validation(epoch):
     info_str += [err_mean]
 
 
-### Main
+# Main
 
 for epoch in range(0, n_epochs):
 

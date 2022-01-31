@@ -12,7 +12,7 @@ gpu='cuda:0'
 ################################################################################
 ### Training parameters
 
-db='./data/BCC/'
+db='./data/BCC/HC_RGB_nG/'
 
 epochs=3000
 inest=18
@@ -22,8 +22,8 @@ inest=18
 
 batch_size=8
 hlnum=3
-hlweights=(256 128)
-lstm_nch=64 \
+hlweights=(1024 512) #(256 128)
+lstm_nch=3 #64
 
 lr=0.0001
 

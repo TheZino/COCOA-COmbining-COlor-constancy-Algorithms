@@ -10,7 +10,7 @@ import torch
 from torch.utils.data import DataLoader
 
 from data.dataset_video import TestsetFromFolder, VideoSampler, collate_pad_frames
-from models.combonn import ComboNN_video as ComboNN
+from models.combonn import ComboNN_video_pre as ComboNN
 from utils.print_utils import printProgressBar
 
 ################################################################################
