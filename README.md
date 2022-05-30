@@ -1,6 +1,6 @@
 # COCOA - COmbining COlor constancy Algorithms
 
-Official implementation of the paper "".
+Official implementation of the paper "COCOA: Combining Color Constancy Algorithms for Images and Videos".
 
 Written in Pytorch v1.7.0
 
@@ -36,8 +36,8 @@ The trainset must be a single csv file containing the name of the file,
 the RGB values corresponding to the Ground Truth ant the RGB values corresponding to the input estimations.
 
 The parameter input_ests refers to the number of inputs in the first layer, e.g.
-if 6 estimations are collected, input_ests = 6*3. Please change the parameter in
-relation to your dataset
+if 6 estimations are collected, input_ests = 6\*3. Please change the parameter in
+relation to your dataset.
 
 Dataset csv example:
 ```
