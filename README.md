@@ -63,9 +63,13 @@ e.g.
 
 ## Inference
 
+### Pretrained model weights
+
+[Google Drive](https://drive.google.com/drive/folders/1e5wqGLlHSPri72SpBVsMWwIrz4nDYn-C?usp=sharing)
+
 ### Testset configuration
 
-The testset mus be formatted in the same way as the training and validation set.
+The testset must be formatted in the same way as the training and validation set.
 
 ### Running the code
 
@@ -74,3 +78,10 @@ The single image runs the model trained on the Shi-Gehler reprocessed and the vi
 tests the video model trained on BCC.
 
 To change the testset and the model, please change the corresponding parameters in the sh call.
+
+## Cite
+
+If you use the code provided in this repository please cite our original work:
+```
+cite
+```

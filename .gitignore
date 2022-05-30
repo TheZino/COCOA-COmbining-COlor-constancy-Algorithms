@@ -11,5 +11,6 @@ source/__pycache__
 # Experiments
 
 out/
+model_weights/
 experiments/
 /*.csv

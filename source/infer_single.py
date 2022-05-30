@@ -8,13 +8,22 @@ from os.path import join
 import skimage.io as io
 import torch
 import torchvision.utils as vutils
-from torch.utils.data import DataLoader
-
 from data.dataset_si import TestsetFromFolder
 from models.combonn import ComboNN_single as ComboNN
+from torch.utils.data import DataLoader
 from utils.print_utils import printProgressBar
 
 
+def translate(ckpt):
+
+    ckpt["layers.2.weight"] = ckpt.pop("layers.3.weight")
+    ckpt["layers.2.bias"] = ckpt.pop("layers.3.bias")
+    ckpt["layers.4.weight"] = ckpt.pop("layers.6.weight")
+    ckpt["layers.4.bias"] = ckpt.pop("layers.6.bias")
+    ckpt["layers.6.weight"] = ckpt.pop("layers.9.weight")
+    ckpt["layers.6.bias"] = ckpt.pop("layers.9.bias")
+
+    return ckpt
 ################################################################################
 ################################################################################
 ################################################################################
@@ -48,7 +57,8 @@ parser.add_argument(
     "--hlweights", nargs="*", help="weights of each level", required=True
 )
 
-parser.add_argument("--device", type=str, default="cpu", help="GPU or CPU device")
+parser.add_argument("--device", type=str, default="cpu",
+                    help="GPU or CPU device")
 
 
 opt = parser.parse_args()
@@ -61,11 +71,11 @@ device = opt.device
 
 save_dir = os.path.dirname(os.path.abspath(opt.save_file))
 
-### Path to the pretrained model to load
+# Path to the pretrained model to load
 model_w = opt.model
 
 
-### GPU board availability check
+# GPU board availability check
 cuda_check = torch.cuda.is_available()
 
 
@@ -73,14 +83,15 @@ cuda_check = torch.cuda.is_available()
 print("\n===> Building models")
 
 
-model = ComboNN(in_nch=opt.infeat, hlnum=opt.hlnum, hlweights=opt.hlweights, out_nch=3)
+model = ComboNN(in_nch=opt.infeat, hlnum=opt.hlnum,
+                hlweights=opt.hlweights, out_nch=3)
 
-### Models loading
+# Models loading
 print("\n===> Loading Model")
 
 ckpt = torch.load(model_w, map_location="cpu")
-
-model.load_state_dict(ckpt["model_state_dict"])
+# ckpt = translate(ckpt)
+model.load_state_dict(ckpt)  # ["model_state_dict"]
 model.eval()
 
 ############################ Setting cuda ######################################
@@ -99,6 +110,7 @@ data_loader = DataLoader(
 
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
+
 
 log_file = open(opt.save_file, "w")
 wr = csv.writer(log_file, quoting=csv.QUOTE_ALL)
@@ -123,7 +135,7 @@ with torch.no_grad():
         sttime = time.time()
         out = model(inputt)
         end = time.time() - sttime
-        ### Metrics Evaluation
+        # Metrics Evaluation
 
         printProgressBar(
             i, len(data_loader), prefix="Validation:", suffix="", length=50
