@@ -107,8 +107,8 @@ mean_rmse = 0
 
 with torch.no_grad():
     i = 0
+    print("\n")
 
-    print("Processing " + str(i + 1) + "/" + str(len(data_loader)), end="\r")
     i += 1
 
     for i, batch in enumerate(data_loader, 1):
@@ -127,7 +127,7 @@ with torch.no_grad():
         # Metrics Evaluation
 
         printProgressBar(
-            i, len(data_loader), prefix="Validation:", suffix="", length=50
+            i, len(data_loader), prefix="Processing:", suffix="", length=50
         )
 
         results = [
