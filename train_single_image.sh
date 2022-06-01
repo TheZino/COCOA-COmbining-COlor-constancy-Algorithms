@@ -11,9 +11,9 @@ gpu='cuda:0'
 ################################################################################
 ### Training parameters
 
-db='./data/SG568_1-32/'
+db='./data/Cube+/default'
 
-epochs=3000
+epochs=1500
 input_ests=18
 
 ################################################################################
@@ -29,7 +29,7 @@ lr=0.003
 
 iddate=`date '+%Y%m%d_%H%M'`
 
-savedir='./experiments/single_image/half_db/exp_HC_RGB_nG_'$iddate'_'$hlnum'hl/'
+savedir='./experiments/single_image/Cube+/exp_default_'$iddate'_'$hlnum'hl/'
 
 
 time python3 ./source/train_single.py  \

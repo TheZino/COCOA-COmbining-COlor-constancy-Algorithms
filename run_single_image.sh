@@ -19,11 +19,11 @@ hlweights=(256 128 64)
 ################################################################################
 ################################################################################
 
-db='./data/SG568/default'
+db='./data/Cube+/fast'
 
-model_weights_dir='./model_weights/single_image/COCOA-HI/SG568/'
+model_weights_dir='./model_weights/single_image/COCOA-HI-fast/SG568/'
 
-save_dir='./out/single_image/SG568/default/'
+save_dir='./out/single_image/Cube+/fast_SG568/'
 
 python3 ./source/infer_single.py \
 --model $model_weights_dir/model_singleimage_f0.pth \

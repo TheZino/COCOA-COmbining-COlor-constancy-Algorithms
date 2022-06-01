@@ -13,17 +13,6 @@ from models.combonn import ComboNN_single as ComboNN
 from torch.utils.data import DataLoader
 from utils.print_utils import printProgressBar
 
-
-def translate(ckpt):
-
-    ckpt["layers.2.weight"] = ckpt.pop("layers.3.weight")
-    ckpt["layers.2.bias"] = ckpt.pop("layers.3.bias")
-    ckpt["layers.4.weight"] = ckpt.pop("layers.6.weight")
-    ckpt["layers.4.bias"] = ckpt.pop("layers.6.bias")
-    ckpt["layers.6.weight"] = ckpt.pop("layers.9.weight")
-    ckpt["layers.6.bias"] = ckpt.pop("layers.9.bias")
-
-    return ckpt
 ################################################################################
 ################################################################################
 ################################################################################
@@ -90,8 +79,8 @@ model = ComboNN(in_nch=opt.infeat, hlnum=opt.hlnum,
 print("\n===> Loading Model")
 
 ckpt = torch.load(model_w, map_location="cpu")
-# ckpt = translate(ckpt)
-model.load_state_dict(ckpt)  # ["model_state_dict"]
+
+model.load_state_dict(ckpt["model_state_dict"])
 model.eval()
 
 ############################ Setting cuda ######################################

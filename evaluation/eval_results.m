@@ -2,7 +2,7 @@ clear
 clc
 
 % Baseline for HC fair with hand tuned model
-model = '../out/single_image/SG568/default';
+model = '../out/single_image/Cube+/fast_SG568';
 
 %% Error calculation
 
@@ -43,8 +43,8 @@ p95 = prctile(tot{:,2}, 95);
 mx = max(tot{:,2});
 
 
-% fprintf('%f %f %f %f %f %f\n', min, avg, med, p90, p95, mx);
-fprintf('min: %f   avg: %f   median: %f   p90: %f   p95: %f   max: %f\n', min, avg, med, p90, p95, mx);
+fprintf('%f %f %f %f %f %f\n', min, avg, med, p90, p95, mx);
+% fprintf('min: %f   avg: %f   median: %f   p90: %f   p95: %f   max: %f\n', min, avg, med, p90, p95, mx);
 
 %%
 clear
