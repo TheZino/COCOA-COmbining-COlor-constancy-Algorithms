@@ -8,6 +8,11 @@ venv/
 source/__pycache__
 *.pyc
 
+# Matlab
+
+data_preparation/dts
+data_preparation/fold_division
+
 # Experiments
 
 out/
