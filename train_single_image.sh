@@ -5,13 +5,13 @@ clear
 ################################################################################
 ### Machine parameters
 
-threads=4
+threads=0
 gpu='cuda:0'
 
 ################################################################################
 ### Training parameters
 
-db='./data/Cube+/fast'
+db='./data/SG568/default'
 
 epochs=1500
 input_ests=18
@@ -29,7 +29,7 @@ lr=0.003
 
 iddate=`date '+%Y%m%d_%H%M'`
 
-savedir='./experiments/single_image/Cube+/exp_fast_'$iddate'_'$hlnum'hl/'
+savedir='./experiments/single_image/SG568/exp_default_'$iddate'_'$hlnum'hl/'
 
 
 time python3 ./source/train_single.py  \

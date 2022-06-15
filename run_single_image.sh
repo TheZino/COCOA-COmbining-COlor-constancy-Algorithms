@@ -8,7 +8,7 @@ gpu='cuda:0'
 
 ################################################################################
 
-inf=18
+inf=3
 mode='onlyest'
 
 ### Model parameters
@@ -19,14 +19,36 @@ hlweights=(256 128 64)
 ################################################################################
 ################################################################################
 
-db='./data/SG568/default'
 
-model_weights_dir='./model_weights/single_image/COCOA-HI/SG568/'
+db_name='SG568'
+version='default'
+model='SG568_red5'
+red=5
 
-save_dir='./out/single_image/SG568/default/'
+db='./data/'$db_name'/'$version
+
+echo $db_name
+
+if [ "$version" = "fast" ]; then
+    model_weights_dir='./model_weights/single_image/COCOA-HI-fast/'$model'/'
+else
+    model_weights_dir='./model_weights/single_image/COCOA-HI/'$model'/'
+fi
+
+echo $model_weights_dir
+
+
+if [ "$db_name" = "$model" ]; then
+    save_dir='./out/single_image/'$db_name'/'$version'/'
+else
+    save_dir='./out/single_image/'$db_name'/'$version'_'$model'/'
+fi
+
+echo $save_dir
 
 python3 ./source/infer_single.py \
 --model $model_weights_dir/model_singleimage_f0.pth \
+--reduced $red \
 --infeat $inf \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
@@ -36,6 +58,7 @@ python3 ./source/infer_single.py \
 
 python3 ./source/infer_single.py \
 --model $model_weights_dir/model_singleimage_f1.pth \
+--reduced $red \
 --infeat $inf \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
@@ -45,6 +68,7 @@ python3 ./source/infer_single.py \
 
 python3 ./source/infer_single.py \
 --model $model_weights_dir/model_singleimage_f2.pth \
+--reduced $red \
 --infeat $inf \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \

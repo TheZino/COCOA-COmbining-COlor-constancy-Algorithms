@@ -1,7 +1,7 @@
 % Extract data from .mat files
 
 db_dir = './AWB_estimations/NUS/';
-data_name = 'est_baseawbbest_nus_256.mat';
+data_name = 'est_baseawbbest.mat';
 
 out_dir = [db_dir, '/estimations/'];
 
@@ -23,5 +23,5 @@ writetable(est_WP, [db_dir, '/estimations/est_illuminants_WP']);
 
 %% GT data
 
-gt_table = readtable([db_dir, '/listaimmaginiNUS.txt']);
-writetable(gt_table, [db_dir, '/GT_NUS.csv']);
+% gt_table = readtable([db_dir, '/image_list.txt']);
+% writetable(gt_table, [db_dir, '/GT_' db_name '.csv']);

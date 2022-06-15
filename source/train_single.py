@@ -4,13 +4,12 @@ import os
 
 import torch
 import torch.optim as optim
-from torch.utils.data import DataLoader
-
-from utils.ColorMetrics import RecoveryLoss
 from data.dataset_si import DatasetFromFolder, ValsetFromFolder
 from models.combonn import ComboNN_single as ComboNN
-from utils.print_utils import printProgressBar
+from torch.utils.data import DataLoader
+from utils.ColorMetrics import RecoveryLoss
 from utils.general_utils import adjust_learning_rate
+from utils.print_utils import printProgressBar
 from utils.weight_initializers import init_weights
 
 ###############################################################################
@@ -66,6 +65,12 @@ parser.add_argument(
 )
 
 parser.add_argument("--wd", action="store_true")
+parser.add_argument(
+    "--reduced",
+    type=str,
+    default=None,
+    help="number of estimation to remove (elimination follows sensitivity analysis)",
+)
 parser.add_argument("--inest", type=int, default=18,
                     help="number of feature in input")
 parser.add_argument(
@@ -140,7 +145,7 @@ print(
 
 print("\n===> Loading Dataset")
 
-train_set = DatasetFromFolder(input_image_path)
+train_set = DatasetFromFolder(input_image_path, reduced=opt.reduced)
 training_data_loader = DataLoader(
     dataset=train_set,
     num_workers=opt.threads,
@@ -150,7 +155,7 @@ training_data_loader = DataLoader(
     drop_last=True,
 )
 
-val_set = ValsetFromFolder(validation_image_path)
+val_set = ValsetFromFolder(validation_image_path, reduced=opt.reduced)
 validation_data_loader = DataLoader(
     dataset=val_set,
     num_workers=opt.threads,

@@ -45,7 +45,12 @@ parser.add_argument(
 parser.add_argument(
     "--hlweights", nargs="*", help="weights of each level", required=True
 )
-
+parser.add_argument(
+    "--reduced",
+    type=str,
+    default=None,
+    help="number of estimation to remove (elimination follows sensitivity analysis)",
+)
 parser.add_argument("--device", type=str, default="cpu",
                     help="GPU or CPU device")
 
@@ -92,7 +97,7 @@ if cuda_check:
 
 ############################### TEST ###########################################
 
-tset = TestsetFromFolder(in_dir)
+tset = TestsetFromFolder(in_dir, reduced=opt.reduced)
 data_loader = DataLoader(
     dataset=tset, num_workers=0, batch_size=1, shuffle=False, pin_memory=True
 )

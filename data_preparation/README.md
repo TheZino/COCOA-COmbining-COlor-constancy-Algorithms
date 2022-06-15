@@ -55,12 +55,8 @@ te_split =
 
 ## Files
 
-
-* makegt.m : genertes gt file from original SG568 file list.
 * make_folds : creates fold division (unfair) from zero for a given estimations file.
 * make_fair_fold : generates a fair fold division for a fold division file.
 * make_new_dataset.m : file for the creation of a dataset, given a estimation file and a fold division file
-* data_preprocessing.m : used by make make_new_dataset.m
-* fold_division.m : used by make make_new_dataset.m
 * make_adv_dataset.m : for generating the advanced methods dataset.
 
