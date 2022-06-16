@@ -2,6 +2,7 @@ import argparse
 import csv
 import os
 
+import ipdb
 import torch
 import torch.optim as optim
 from data.dataset_si import DatasetFromFolder, ValsetFromFolder
@@ -108,6 +109,15 @@ input_image_path = opt.trainset_dir  # path to the input image directory
 validation_image_path = opt.validation_dir
 
 save_dir = opt.save_dir  # directory where to save checkpoints and outputs
+
+if str.find(save_dir, 'fold0') != -1:
+    fold_version = 0
+elif str.find(save_dir, 'fold1') != -1:
+    fold_version = 1
+elif str.find(save_dir, 'fold2') != -1:
+    fold_version = 2
+
+global_save_dir = opt.save_dir + '../model_weights/'
 check_path = save_dir + "/checkpoints"  # directory for checkpoint save
 
 # Path to the pretrained model to load
@@ -124,7 +134,7 @@ if cuda_check:
 
 ##################### Check Folders ############################################
 
-save_paths = [save_dir, check_path]
+save_paths = [save_dir, check_path, global_save_dir]
 
 for pth in save_paths:
     if not os.path.exists(pth):
@@ -311,6 +321,8 @@ def validation(epoch):
             "mean_error": err_mean,
         }
         torch.save(state, check_path + "/netComboNN_epochbest.pth")
+        torch.save(state, global_save_dir +
+                   "/model_singleimage_f" + str(fold_version) + ".pth")
 
     print("Validation mean recovery error: {}".format(err_mean))
     info_str += [err_mean]

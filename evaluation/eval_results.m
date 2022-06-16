@@ -3,7 +3,7 @@ clc
 
 
 % Baseline for HC fair with hand tuned model
-model = '../out/single_image/SG568/default_SG568_red5'
+model = '../out/single_image/SG568/fast'
 
 %% Error calculation
 
@@ -37,6 +37,7 @@ tot = [f0; f1; f2];
 
 min = min(tot{:,2});
 avg = mean(tot{:,2});
+trimn = trimean(tot{:,2});
 med = median(tot{:,2});
 
 p90 = prctile(tot{:,2}, 90);
@@ -44,9 +45,9 @@ p95 = prctile(tot{:,2}, 95);
 mx = max(tot{:,2});
 
 
-fprintf('%f %f %f %f %f %f\n', min, avg, med, p90, p95, mx);
-% fprintf('min: %f   avg: %f   median: %f   p90: %f   p95: %f   max: %f\n', min, avg, med, p90, p95, mx);
+fprintf('%f %f %f %f %f %f %f\n', min, avg, trimn, med, p90, p95, mx);
+% fprintf('min: %f   avg: %f   trimean: %f   median: %f   p90: %f   p95: %f   max: %f\n', min, avg, med, p90, p95, mx);
 
 %%
 
-histogram(tot{:,2}, 100, 'FaceColor', [0 0.4470 0.7410], 'BinLimits', [0,20])
+% histogram(tot{:,2}, 100, 'FaceColor', [0 0.4470 0.7410], 'BinLimits', [0,20])

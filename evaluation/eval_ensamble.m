@@ -2,10 +2,10 @@ clear
 clc
 
 
-model = './out/single_image/SG568/reduced_inputs/';
-model1  = './out/single_image/SG568/reduced_inputs/default_SG568_red1_123123';
-model2  = './out/single_image/SG568/reduced_inputs/default_SG568_red1_4321';
-model3  = './out/single_image/SG568/reduced_inputs/default_SG568_red1_5678';
+model = '../out/single_image/SG568/default_ensamble/';
+model1  = '../out/single_image/SG568/default_ensamble/123123';
+model2  = '../out/single_image/SG568/default_ensamble/4321';
+model3  = '../out/single_image/SG568/default_ensamble/5678';
 
 
 for i=0:2

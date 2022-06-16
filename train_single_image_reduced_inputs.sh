@@ -24,7 +24,7 @@ hlweights=(256 128 64)
 lr=0.003
 
 ################################################################################
-for seed in 123123 4321 5678
+for seed in 5678
 do
 
     for nest in 1 2 3 4 5
@@ -35,6 +35,7 @@ do
 
         savedir='./experiments/single_image/SG568/exp_default_'$iddate'_'$hlnum'hl_redu_'$nest'_'$seed'/'
 
+        echo $savedir
 
         time python3 ./source/train_single.py  \
         --seed $seed \

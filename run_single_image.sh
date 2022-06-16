@@ -8,7 +8,7 @@ gpu='cuda:0'
 
 ################################################################################
 
-inf=3
+inf=18
 mode='onlyest'
 
 ### Model parameters
@@ -22,8 +22,8 @@ hlweights=(256 128 64)
 
 db_name='SG568'
 version='default'
-model='SG568_red5'
-red=5
+model='ensamble/SG568/5678'
+
 
 db='./data/'$db_name'/'$version
 
@@ -48,7 +48,6 @@ echo $save_dir
 
 python3 ./source/infer_single.py \
 --model $model_weights_dir/model_singleimage_f0.pth \
---reduced $red \
 --infeat $inf \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
@@ -58,7 +57,6 @@ python3 ./source/infer_single.py \
 
 python3 ./source/infer_single.py \
 --model $model_weights_dir/model_singleimage_f1.pth \
---reduced $red \
 --infeat $inf \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
@@ -68,7 +66,6 @@ python3 ./source/infer_single.py \
 
 python3 ./source/infer_single.py \
 --model $model_weights_dir/model_singleimage_f2.pth \
---reduced $red \
 --infeat $inf \
 --hlnum $hlnum \
 --hlweights ${hlweights[@]} \
