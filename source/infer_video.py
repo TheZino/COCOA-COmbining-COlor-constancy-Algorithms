@@ -122,7 +122,7 @@ if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
 log_file = open(opt.save_file, "w")
-wr = csv.writer(log_file, quoting=csv.QUOTE_ALL)
+wr = csv.writer(log_file, quoting=csv.QUOTE_NONNUMERIC)
 
 # error = 0
 errors = []
