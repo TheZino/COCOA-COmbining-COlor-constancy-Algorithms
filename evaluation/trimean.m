@@ -4,7 +4,7 @@ function val = trimean(data)
 
     % compute 25th percentile (first quartile)
     % Q1 = median(data(find(data<median(data))));
-    Q1 = prctile(data, 25)
+    Q1 = prctile(data, 25);
 
     % compute 50th percentile (second quartile)
     Q2 = median(data);
