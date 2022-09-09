@@ -83,5 +83,11 @@ To change the testset and the model, please change the corresponding parameters 
 
 If you use the code provided in this repository please cite our original work:
 ```
-cite
+@article{zini2022cocoa,
+  title={COCOA: Combining Color Constancy Algorithms for Images and Videos},
+  author={Zini, Simone and Buzzelli, Marco and Bianco, Simone and Schettini, Raimondo},
+  journal={IEEE Transactions on Computational Imaging},
+  year={2022},
+  publisher={IEEE}
+}
 ```
