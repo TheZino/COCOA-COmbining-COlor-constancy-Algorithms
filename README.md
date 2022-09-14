@@ -1,6 +1,6 @@
 # COCOA - COmbining COlor constancy Algorithms
 
-Official implementation of the paper "COCOA: Combining Color Constancy Algorithms for Images and Videos".
+Official implementation of the paper ["COCOA: Combining Color Constancy Algorithms for Images and Videos".](https://ieeexplore.ieee.org/abstract/document/9874990)
 
 Written in Pytorch v1.7.0
 
