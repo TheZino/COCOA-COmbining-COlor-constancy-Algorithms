@@ -87,6 +87,8 @@ If you use the code provided in this repository please cite our original work:
   title={COCOA: Combining Color Constancy Algorithms for Images and Videos},
   author={Zini, Simone and Buzzelli, Marco and Bianco, Simone and Schettini, Raimondo},
   journal={IEEE Transactions on Computational Imaging},
+  volume={8},
+  pages={795--807},
   year={2022},
   publisher={IEEE}
 }
