@@ -3,7 +3,7 @@ addpath('edgebased_fast');
 
 % Color Checker dataset
 files_path = 'filelist_CC.txt'; % List of input files
-traw_path = '/home/marco/Datasets/ColorConstancy/ColorChecker/Shi/Masked/'; % Images in 16-bit TIFF-RAW format, with masked color target
+traw_path = 'ColorChecker/Shi/Masked/'; % Images in 16-bit TIFF-RAW format, with masked color target
 
 verbose = true;
 
